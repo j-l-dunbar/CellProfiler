@@ -1,0 +1,117 @@
+Help on PSF in module psf.psf object:
+
+class PPSSFF(builtins.object)
+ |  PSF(psftype, shape=(256, 256), dims=(4.0, 4.0), ex_wavelen=None, em_wavelen=None, num_aperture=1.2, refr_index=1.333, magnification=1.0, underfilling=1.0, pinhole_radius=None, pinhole_shape='round', expsf=None, empsf=None, name=None)
+ |  
+ |  Calculate point spread function of various types.
+ |  
+ |  Attributes
+ |  ----------
+ |  psftype : int
+ |      A combination of the following properties. Valid combinations are
+ |      listed in PSF.psftype.
+ |  
+ |      ANISOTROPIC or ISOTROPIC or GAUSSIAN or GAUSSLORENTZ
+ |          Specify calculation model.
+ |      EXCITATION or EMISSION or WIDEFIELD or CONFOCAL or TWOPHOTON
+ |          Specify type of PSF.
+ |      PARAXIAL
+ |          Border case for Gaussian approximations.
+ |  name : str
+ |      A human readable label.
+ |  data : 2D array of floats (C doubles)
+ |      PSF values in z,r space normalized to the value at the origin.
+ |  shape : sequence of int
+ |      Size of the data array in pixel. Default (256, 256)
+ |  dims : Dimension instance
+ |      Dimensions of the data array in px (pixel), um (micrometers),
+ |      ou (optical units), and au (airy units).
+ |  ex_wavelen and em_wavelen : float or None
+ |      Excitation or emission wavelengths in micrometers if applicable.
+ |  num_aperture : float
+ |      Numerical aperture (NA) of the objective. Default 1.2.
+ |  refr_index : float
+ |      Index of refraction of the sample medium. Default 1.333 (water).
+ |  magnification : float
+ |      Total magnification of the optical system. Default 1.0.
+ |  underfilling : float
+ |      Underfilling factor, i.e. the ratio of the radius of the objective
+ |      back aperture to the exp(-2) radius of the excitation laser.
+ |      Default 1.0.
+ |  sigma : Dimension instance or None
+ |      Gaussian sigma parameters in px (pixel), um (micrometers),
+ |      ou (optical units), and au (airy units) if applicable.
+ |  pinhole : Pinhole instance or None
+ |      Pinhole applies to confocal types only.
+ |  expsf, empsf : PSF instance or None
+ |      Excitation or Emission PSF objects if applicable (i.e. when calculated
+ |      intermediately for confocal)
+ |  
+ |  Notes
+ |  -----
+ |  Calculations of the isotropic PSFs are based on the complex integration
+ |  representation for the diffraction near the image plane proposed by
+ |  Richards and Wolf [1-4].
+ |  
+ |  Gaussian approximations are calculated according to [5].
+ |  
+ |  Widefield calculations are used if the pinhole radius is larger than ~8 au.
+ |  
+ |  Models for polarized excitation or emission light (ANISOTROPIC) and the
+ |  Gaussian-Lorentzian approximation (GAUSSLORENTZ) are not implemented.
+ |  
+ |  Methods defined here:
+ |  
+ |  ____ggeettiitteemm____(self, key)
+ |      Return value of data array at position.
+ |  
+ |  ____iinniitt____(self, psftype, shape=(256, 256), dims=(4.0, 4.0), ex_wavelen=None, em_wavelen=None, num_aperture=1.2, refr_index=1.333, magnification=1.0, underfilling=1.0, pinhole_radius=None, pinhole_shape='round', expsf=None, empsf=None, name=None)
+ |      Initialize the PSF object.
+ |      
+ |      Arguments
+ |      ---------
+ |      psftype, shape, num_aperture, refr_index, magnification, underfilling,
+ |          expsf, and empsf:
+ |          See PSF attributes.
+ |      dims : sequence of float
+ |          Dimensions of the data array in *micrometers*. Default (4., 4.)
+ |      ex_wavelen and em_wavelen : float or None
+ |          Excitation or emission wavelengths in *nanometers* if applicable.
+ |      pinhole_radius : float or None
+ |          Outer radius of the pinhole in *micrometers* in the object space.
+ |          This is the back-projected radius, i.e. the real physical radius
+ |          of the pinhole divided by the magnification of the system.
+ |      pinhole_shape : str
+ |          Either 'round' (default) or 'square'.
+ |  
+ |  ____ssttrr____(self)
+ |      Return properties of PSF object as string.
+ |  
+ |  iimmsshhooww(self, subplot=111, **kwargs)
+ |      Log-plot PSF image using matplotlib.pyplot. Return plot axis.
+ |  
+ |  iissccoommppaattiibbllee(self, other)
+ |      Return True if objects match dimensions and optical properties.
+ |  
+ |  sslliiccee(self, key=slice(None, None, None))
+ |      Return a z slice of the PSF with rotational symmetries applied.
+ |  
+ |  vvoolluummee(self)
+ |      Return a 3D volume of the PSF with all symmetries applied.
+ |      
+ |      The shape of the returned array is
+ |          (2*self.shape[0]-1, 2*self.shape[1]-1, 2*self.shape[1]-1)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  ____ddiicctt____
+ |      dictionary for instance variables (if defined)
+ |  
+ |  ____wweeaakkrreeff____
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  TTYYPPEESS = {18: 'Excitation, Isotropic', 20: 'Excitation, Gaussian', 34: ...
