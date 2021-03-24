@@ -72,7 +72,6 @@ from skimage.color import rgb2gray
 image = cropped_restore
 image_gray = rgb2gray(image)
 blobs_log = blob_log(image_gray, min_sigma=1, max_sigma=6, num_sigma=4, threshold=.07, overlap=0.9)
-# Compute radii in the 3rd column.
 blobs_log[:, 2] = blobs_log[:, 2] * sqrt(2)
 
 
